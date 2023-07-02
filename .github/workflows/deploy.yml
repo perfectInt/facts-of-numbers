@@ -1,0 +1,14 @@
+name: deploy a bot
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: ls_check
+        run: ls -la
