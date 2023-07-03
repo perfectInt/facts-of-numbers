@@ -6,4 +6,4 @@ COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY bot.py bot.py
-ENTRYPOINT ["python3", "bot.py"]
+CMD ["python3", "bot.py"]
