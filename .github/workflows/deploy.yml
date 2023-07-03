@@ -33,4 +33,4 @@ jobs:
           docker push ${{secrets.DOCKER_USERNAME}}/numbers-bot:latest
 
       - name: run a bot
-        run: docker run numbers-bot -e${{secrets.TOKEN}} &
+        run: docker run numbers-bot &
