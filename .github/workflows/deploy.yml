@@ -34,5 +34,4 @@ jobs:
 
       - name: run a bot
         run: |
-          cd docker
-          docker-compose up -d
+          docker run -d numbers-bot

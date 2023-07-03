@@ -6,4 +6,5 @@ COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY bot.py bot.py
+RUN echo $TOKEN
 CMD ["python3", "bot.py"]
