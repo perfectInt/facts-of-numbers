@@ -33,4 +33,6 @@ jobs:
           docker push ${{secrets.DOCKER_USERNAME}}/numbers-bot:latest
 
       - name: run a bot
-        run: docker run numbers-bot &
+        run: |
+          cd docker
+          docker-compose up -d
