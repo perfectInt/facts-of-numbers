@@ -4,7 +4,7 @@ import requests
 from telebot import types
 from telebot.types import InlineKeyboardButton
 
-BOT_TOKEN=os.environ.get('BOT_TOKEN')
+BOT_TOKEN = os.environ.get('TOKEN')
 bot = telebot.TeleBot(BOT_TOKEN)
 
 
