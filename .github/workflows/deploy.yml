@@ -12,3 +12,11 @@ jobs:
     steps:
       - name: ls_check
         run: ls -la
+
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: build and start a bot
+        run: |
+          cd docker
+          docker-compose up -d
