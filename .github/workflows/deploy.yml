@@ -24,12 +24,15 @@ jobs:
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: build and run a bot
-        run: |
-          cd docker
-          docker-compose up -d
+      - name: build an image
+        run: docker build -t numbers-bot:latest . --build-arg ${{ secrets.TOKEN }}
 
       - name: push docker image
         run: |
           docker tag numbers-bot:latest ${{secrets.DOCKER_USERNAME}}/numbers-bot
           docker push ${{secrets.DOCKER_USERNAME}}/numbers-bot:latest
+
+      - name: run a bot
+        run: |
+          cd docker
+          docker-compose up -d
