@@ -21,16 +21,16 @@ jobs:
       - name: ls
         run: ls -la
 
-      - name: clearing old container
-        run: |
-          cd docker
-          docker-compose down
+#      - name: clearing old container
+#        run: |
+#          cd docker
+#          docker-compose down
 
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: build an image
-        run: docker build -t numbers-bot:latest . --build-arg BOT_TOKEN=${{ secrets.TOKEN }}
+        run: docker build -t numbers-bot:latest . --build-arg BOT_TOKEN=${{ secrets.TOKEN }} --name numbers-bot
 
       - name: push docker image
         run: |
@@ -39,4 +39,5 @@ jobs:
 
       - name: run a bot
         run: |
-          docker run -d numbers-bot
+          cd docker
+          docker-compose up -d
