@@ -1,6 +1,7 @@
 import os
 import telebot
 import requests
+import datetime
 from telebot import types
 from telebot.types import InlineKeyboardButton
 
@@ -10,25 +11,18 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 @bot.message_handler(commands=['start', 'hello'])
 def send_welcome(message):
-    bot.reply_to(message, "Hello! I am a bot which can tell you certain fact of random number in different categories")
+    bot.reply_to(message, "Hello! I am a bot which can tell you a random fact of random number in different "
+                          "categories\n" +
+                 "Just say me any number.")
 
 
-@bot.message_handler(commands=['help'])
-def send_help(message):
-    bot.send_message(message.from_user.id, "To get some facts use next commands:\n " +
-                     "/get_fact - to start to fill args to get random fact about certain number\n" +
-                     "/help - to get help\n")
-
-
-@bot.message_handler(commands=['get_fact'])
-def get_fact(message):
-    bot.send_message(message.from_user.id, "Enter a number that you want to check")
-    bot.register_next_step_handler(message, get_number)
-
-
+@bot.message_handler(func=lambda message: True)
 def get_number(message):
-    print(message.text)
-    choose_type_of_fact(message, int(message.text))
+    try:
+        num = int(message.text)
+        choose_type_of_fact(message, num)
+    except ValueError:
+        bot.send_message(message.from_user.id, "Sorry, I can work only with numbers")
 
 
 def choose_type_of_fact(message, num):
@@ -42,9 +36,11 @@ def choose_type_of_fact(message, num):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     category, num, chat_id = call.data.split(" ")
-    print(num, category, chat_id)
-    r = requests.get(f"http://numbersapi.com/{num}/{category}")
-    bot.send_message(chat_id, r.text)
+    if category == "date" and num > datetime.date.today().year:
+        bot.answer_callback_query(chat_id, "No data")
+    else:
+        r = requests.get(f"http://numbersapi.com/{num}/{category}")
+        bot.send_message(chat_id, r.text)
 
 
 bot.infinity_polling()

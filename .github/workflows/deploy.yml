@@ -21,6 +21,11 @@ jobs:
       - name: ls
         run: ls -la
 
+      - name: clearing old container
+        run: |
+          cd docker
+          docker-compose down
+
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
