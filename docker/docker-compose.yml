@@ -2,5 +2,6 @@ version: "3"
 
 services:
   numbers-bot:
+    container_name: numbers-bot
     image: numbers-bot
     restart: always
