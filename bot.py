@@ -36,11 +36,8 @@ def choose_type_of_fact(message, num):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     category, num, chat_id = call.data.split(" ")
-    if num > datetime.date.today().year and category == "date":
-        bot.answer_callback_query(chat_id, "No data")
-    else:
-        r = requests.get(f"http://numbersapi.com/{num}/{category}")
-        bot.send_message(chat_id, r.text)
+    r = requests.get(f"http://numbersapi.com/{num}/{category}")
+    bot.send_message(chat_id, r.text)
 
 
 bot.infinity_polling()
