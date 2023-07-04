@@ -3,6 +3,4 @@ version: "3"
 services:
   numbers-bot:
     image: numbers-bot
-    environment:
-      - TOKEN=${BOT_TOKEN}
     restart: always
