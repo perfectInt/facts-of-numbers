@@ -12,7 +12,7 @@ bot = telebot.TeleBot(BOT_TOKEN)
 @bot.message_handler(commands=['start', 'hello'])
 def send_welcome(message):
     bot.reply_to(message, "Hello! I am a bot which can tell you a random fact of random number in different "
-                          "categories\n" +
+                          "categories.\n" +
                  "Just say me any number.")
 
 
@@ -36,7 +36,7 @@ def choose_type_of_fact(message, num):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     category, num, chat_id = call.data.split(" ")
-    if category == "date" and num > datetime.date.today().year:
+    if num > datetime.date.today().year and category == "date":
         bot.answer_callback_query(chat_id, "No data")
     else:
         r = requests.get(f"http://numbersapi.com/{num}/{category}")
