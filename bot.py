@@ -36,11 +36,8 @@ def choose_type_of_fact(message, num):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     category, num, chat_id = call.data.split(" ")
-    if category == "date" and num > 366:
-        bot.answer_callback_query(chat_id, "Sorry, there are only 365 days in one year")
-    else:
-        r = requests.get(f"http://numbersapi.com/{num}/{category}")
-        bot.send_message(chat_id, r.text)
+    r = requests.get(f"http://numbersapi.com/{num}/{category}")
+    bot.send_message(chat_id, r.text)
 
 
 bot.infinity_polling()
